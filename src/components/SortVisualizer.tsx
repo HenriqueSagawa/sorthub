@@ -42,6 +42,24 @@ export function SortVisualizer({ algorithm }: { algorithm: SortAlgorithm }) {
   const speedRef = useRef(speed);
   const soundOnRef = useRef(soundOn);
   const audioCtxRef = useRef<AudioContext | null>(null);
+
+  useEffect(() => {
+    return () => {
+      cancelRef.current = true;
+      pausedRef.current = false;
+
+      const audioCtx = audioCtxRef.current;
+      audioCtxRef.current = null;
+      if (audioCtx && audioCtx.state !== "closed") {
+        void audioCtx
+          .close()
+          .catch((error: unknown) =>
+            console.error("Não foi possível encerrar o áudio do visualizador.", error),
+          );
+      }
+    };
+  }, []);
+
   useEffect(() => {
     speedRef.current = speed;
   }, [speed]);
@@ -154,6 +172,7 @@ export function SortVisualizer({ algorithm }: { algorithm: SortAlgorithm }) {
     while (!step.done) {
       if (cancelRef.current) break;
       await waitWhilePaused();
+      if (cancelRef.current) break;
       const s = step.value as Step;
       // reset transient states (keep sorted + pivot)
       for (let i = 0; i < workStates.length; i++) {

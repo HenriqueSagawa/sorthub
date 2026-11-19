@@ -1,9 +1,8 @@
-function App() {
-  return (
-    <div>
-      <h1>Olá, mundo!</h1>
-    </div>
-  );
-}
+import { RouterProvider } from "@tanstack/react-router";
+import { getRouter } from "./router";
 
-export default App;
+const router = getRouter();
+
+export default function App() {
+  return <RouterProvider router={router} />;
+}
