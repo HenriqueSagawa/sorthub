@@ -78,9 +78,20 @@ function SiteHeader() {
 
 function SiteFooter() {
   return (
-    <footer className="mt-12 border-t">
+    <footer className="mt-12 border-t flex justify-around items-center w-full mx-auto max-w-6xl px-4 py-6 text-sm text-muted-foreground">
       <div className="container mx-auto max-w-6xl px-4 py-6 text-sm text-muted-foreground">
         SortHub — Hub educacional de algoritmos de ordenação.
+      </div>
+      <div className="container mx-auto max-w-6xl px-4 py-6 text-sm text-muted-foreground">
+        Desenvolvido por{" "}
+        <a
+          href="https://github.com/HenriqueSagawa"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary hover:underline"
+        >
+          Henrique Sagawa
+        </a>
       </div>
     </footer>
   );
